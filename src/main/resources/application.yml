@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: PatchAPIExample
+  jackson:
+    serialization:
+      write-bigdecimal-as-plain: true
+      write-dates-as-timestamps: false
