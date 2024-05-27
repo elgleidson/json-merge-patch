@@ -1,23 +1,19 @@
 package com.github.elgleidson.patch.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.elgleidson.patch.controller.converter.DomainConverter;
+import com.github.elgleidson.patch.controller.converter.DomainMerger;
 import com.github.elgleidson.patch.controller.domain.PersonRequest;
 import com.github.elgleidson.patch.controller.domain.PersonResponse;
-import com.github.elgleidson.patch.domain.Person;
 import com.github.elgleidson.patch.service.PersonService;
 import com.github.fge.jsonpatch.mergepatch.JsonMergePatch;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
-import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -39,8 +35,7 @@ public class PersonController {
 
   private final PersonService service;
   private final DomainConverter domainConverter;
-  private final ObjectMapper objectMapper;
-  private final Validator validator;
+  private final DomainMerger domainMerger;
 
   @GetMapping
   public Mono<ResponseEntity<List<PersonResponse>>> getAll() {
@@ -82,7 +77,7 @@ public class PersonController {
                                                     @Schema(implementation = PersonRequest.class)
                                                     @RequestBody JsonMergePatch request) {
     return service.get(id)
-      .map(person -> applyPatch(person, request))
+      .map(person -> domainMerger.apply(person, request))
       .flatMap(person -> service.update(id, person))
       .map(domainConverter::convertToResponse)
       .map(ResponseEntity::ok)
@@ -90,27 +85,6 @@ public class PersonController {
       .onErrorMap(BindException.class, bindException -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "", bindException))
       .doFirst(() -> log.info("enter patch(): id={}, request={}", id, request))
       .doOnSuccess(response -> log.info("exit patch(): response={}", response));
-  }
-
-  @SneakyThrows
-  private Person applyPatch(Person person, JsonMergePatch mergePatch) {
-    var request = domainConverter.convertToRequest(person);
-    var jsonNode = objectMapper.convertValue(request, JsonNode.class);
-    var patched = mergePatch.apply(jsonNode);
-    var patchedRequest = objectMapper.treeToValue(patched, PersonRequest.class);
-
-    validate(patchedRequest);
-    return domainConverter.convertFromRequest(person.id(), patchedRequest);
-  }
-
-  @SneakyThrows
-  private void validate(PersonRequest request) {
-    var bindException = new BindException(PersonRequest.class, "request");
-    validator.validate(request, bindException);
-    if (bindException.hasErrors()) {
-      log.error("errors={}", bindException.getAllErrors());
-      throw bindException;
-    }
   }
 
 }

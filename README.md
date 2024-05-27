@@ -45,7 +45,9 @@ so the request body won't be automatically validated by Spring
 This example works around this issue, showing how to make use of the (jakarta/javax) annotations to validate a Json Merge Patch so that 
 the request body is correctly validated as if we were using a POST / PUT API.
 
-Check [PersonController](src/main/java/com/github/elgleidson/patch/controller/PersonController.java)!
+Check:
+- [PersonController](src/main/java/com/github/elgleidson/patch/controller/PersonController.java)
+- [DomainMerger](src/main/java/com/github/elgleidson/patch/controller/converter/DomainMerger.java)
 
 
 ## Swagger docs:
