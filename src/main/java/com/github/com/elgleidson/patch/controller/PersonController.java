@@ -35,7 +35,7 @@ import reactor.core.publisher.Mono;
 @Validated
 @RequiredArgsConstructor
 @Slf4j
-public class ProspectController {
+public class PersonController {
 
   private final PersonService service;
   private final DomainConverter domainConverter;

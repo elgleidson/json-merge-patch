@@ -33,10 +33,7 @@ curl -X 'POST' \
   }
 }'
 ```
-_Response_:
-```json
-794b32b2-b187-47b3-9b65-62014acc332a
-```
+_Response_: `794b32b2-b187-47b3-9b65-62014acc332a`
 
 **Check the result:**
 ```shell
