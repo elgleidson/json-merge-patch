@@ -84,12 +84,6 @@ public class DomainMerger {
   }
 
   @SneakyThrows
-  public void validate(JsonNode jsonNode) {
-    var personRequest = objectMapper.treeToValue(jsonNode, PersonRequest.class);
-    validate(personRequest);
-  }
-
-  @SneakyThrows
   private void validate(PersonRequest patchedRequest) {
     var bindException = new BindException(PersonRequest.class, "request");
     validator.validate(patchedRequest, bindException);
