@@ -1,7 +1,14 @@
 http://localhost:8080/swagger-ui.html
 
-### Step 1: create a person only with personal details:
+## Swagger docs:
+We can see the swagger docs are generated correctly. This is possible due to the following annotation:
+`@Schema(implementation = PersonRequest.class) @RequestBody JsonMergePatch request`
+<img src="swagger-doc-schema.png" alt="Swagger doc schema" width=500>
+<img src="swagger-doc-example.png" alt="Swagger doc example" width=500>
 
+## Testing with cURL
+
+### Step 1: create a person only with personal details:
 ```shell
 curl -X 'POST' \
   'http://localhost:8080/people' \
@@ -38,8 +45,8 @@ _Response:_
 }
 ```
 
-### Adding address:
 
+### Adding address:
 ```shell
 curl -X 'PATCH' \
   'http://localhost:8080/people/794b32b2-b187-47b3-9b65-62014acc332a' \
@@ -53,11 +60,6 @@ curl -X 'PATCH' \
   }
 }
 '
-```
-
-**Check the result:**
-```shell
-curl -X 'GET' 'http://localhost:8080/people/794b32b2-b187-47b3-9b65-62014acc332a'
 ```
 _Response:_
 ```json
@@ -76,6 +78,7 @@ _Response:_
   "contact": null
 }
 ```
+
 
 ### Adding contact details
 ```shell
@@ -91,11 +94,6 @@ curl -X 'PATCH' \
 }
 '
 ```
-
-**Check the result:**
-```shell
-curl -X 'GET' 'http://localhost:8080/people/794b32b2-b187-47b3-9b65-62014acc332a'
-```
 _Response:_
 ```json
 {
@@ -117,7 +115,8 @@ _Response:_
 }
 ```
 
-### Removing the contact details
+
+### Removing all contact details
 ```shell
 curl -X 'PATCH' \
   'http://localhost:8080/people/794b32b2-b187-47b3-9b65-62014acc332a' \
@@ -127,10 +126,6 @@ curl -X 'PATCH' \
   "contact": null
 }
 '
-```
-**Check the result:**
-```shell
-curl -X 'GET' 'http://localhost:8080/people/794b32b2-b187-47b3-9b65-62014acc332a'
 ```
 _Response:_
 ```json
@@ -150,6 +145,7 @@ _Response:_
 }
 ```
 
+
 ## Updating only the city
 ```shell
 curl -X 'PATCH' \
@@ -162,10 +158,6 @@ curl -X 'PATCH' \
   }
 }
 '
-```
-**Check the result:**
-```shell
-curl -X 'GET' 'http://localhost:8080/people/794b32b2-b187-47b3-9b65-62014acc332a'
 ```
 _Response:_
 ```json
@@ -185,7 +177,8 @@ _Response:_
 }
 ```
 
-### Adding invalid email
+
+### Adding invalid field
 ```shell
 curl -X 'PATCH' \
   'http://localhost:8080/people/794b32b2-b187-47b3-9b65-62014acc332a' \
@@ -199,3 +192,52 @@ curl -X 'PATCH' \
 '
 ```
 _Response:_ 400 as it gets validated by `@Email` annotation.
+
+
+### Removing optional field
+```shell
+curl -X 'PATCH' \
+  'http://localhost:8080/people/794b32b2-b187-47b3-9b65-62014acc332a' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "contact": {
+    "email": null
+  }
+}'
+```
+_Response:_
+```json
+{
+  "id": "794b32b2-b187-47b3-9b65-62014acc332a",
+  "personalDetails": {
+    "firstName": "Freddy",
+    "lastName": "Krueger",
+    "dateOfBirth": "1984-11-09"
+  },
+  "address": {
+    "address": "1428 Elm Street",
+    "city": "Los Angeles",
+    "postCode": "LA1234"
+  },
+  "contact": {
+    "email": null,
+    "phoneNumber": "12345678"
+  }
+}
+```
+
+
+### Removing mandatory field
+```shell
+curl -X 'PATCH' \
+  'http://localhost:8080/people/794b32b2-b187-47b3-9b65-62014acc332a' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "personalDetails": {
+    "firstName": null
+  }
+}'
+```
+_Response:_ 400 as it gets validated by `@NotBlank` annotation.

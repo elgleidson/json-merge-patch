@@ -37,11 +37,9 @@ public record PersonRequest(
   }
 
   public record ContactDetails(
-    @NotBlank
     @Email
     String email,
-    @NotBlank
-    @Pattern(regexp = "\\d+")
+    @Pattern(regexp = "\\d{1,20}")
     String phoneNumber
   ) {
   }

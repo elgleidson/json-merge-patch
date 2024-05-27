@@ -4,6 +4,7 @@ import com.github.com.elgleidson.patch.controller.domain.PersonRequest;
 import com.github.com.elgleidson.patch.controller.domain.PersonResponse;
 import com.github.com.elgleidson.patch.domain.Person;
 import java.util.Optional;
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,13 @@ public class DomainConverter {
 
   public Person convertFromRequest(PersonRequest request) {
     log.debug("enter convertFromRequest(): request={}", request);
+    var person = convertFromRequest(null, request);
+    log.debug("exit convertFromRequest(): result={}", person);
+    return person;
+  }
+
+  public Person convertFromRequest(UUID id, PersonRequest request) {
+    log.debug("enter convertFromRequest(): id={}, request={}", id, request);
 
     var personalDetails = Optional.ofNullable(request.personalDetails())
       .map(vm -> new Person.PersonalDetails(vm.firstName(), vm.lastName(), vm.dateOfBirth()))
@@ -26,7 +34,7 @@ public class DomainConverter {
       .map(vm -> new Person.Contact(vm.email(), vm.phoneNumber()))
       .orElse(Person.Contact.NO_CONTACT);
 
-    var person = new Person(null, personalDetails, address, contact);
+    var person = new Person(id, personalDetails, address, contact);
     log.debug("exit convertFromRequest(): result={}", person);
     return person;
   }

@@ -54,7 +54,7 @@ public class InMemoryPersonRepository implements PersonRepository {
     return Mono.just(person)
       .map(entityConverter::convertToEntity)
       .map(entity -> database.replace(id, entity))
-      .map(entityConverter::convertFromEntity)
+      .map(oldEntity -> person)
       .doFirst(() -> log.info("enter update(): id={}, person={}", id, person))
       .doOnSuccess(response -> log.info("exit update(): response={}", response));
   }

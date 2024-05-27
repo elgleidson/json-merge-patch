@@ -3,7 +3,7 @@ package com.github.com.elgleidson.patch.domain;
 
 import java.time.LocalDate;
 import java.util.UUID;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 public record Person(
   UUID id,
@@ -20,7 +20,7 @@ public record Person(
     public static final PersonalDetails NO_PERSONAL_DETAILS = new PersonalDetails(null, null, null);
 
     public boolean isPresent() {
-      return StringUtils.isNotBlank(firstName);
+      return ObjectUtils.anyNotNull(firstName, lastName, dateOfBirth);
     }
   }
 
@@ -32,7 +32,7 @@ public record Person(
     public static final Address NO_ADDRESS = new Address(null, null, null);
 
     public boolean isPresent() {
-      return StringUtils.isNotBlank(address);
+      return ObjectUtils.anyNotNull(address, city, postCode);
     }
   }
 
@@ -43,7 +43,7 @@ public record Person(
     public static final Contact NO_CONTACT = new Contact(null, null);
 
     public boolean isPresent() {
-      return StringUtils.isNotBlank(email);
+      return ObjectUtils.anyNotNull(email, phoneNumber);
     }
   }
 

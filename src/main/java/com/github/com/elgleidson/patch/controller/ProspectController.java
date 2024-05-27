@@ -86,6 +86,7 @@ public class ProspectController {
       .flatMap(person -> service.update(id, person))
       .map(domainConverter::convertToResponse)
       .map(ResponseEntity::ok)
+      .defaultIfEmpty(ResponseEntity.notFound().build())
       .onErrorMap(BindException.class, bindException -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "", bindException))
       .doFirst(() -> log.info("enter patch(): id={}, request={}", id, request))
       .doOnSuccess(response -> log.info("exit patch(): response={}", response));
@@ -99,7 +100,7 @@ public class ProspectController {
     var patchedRequest = objectMapper.treeToValue(patched, PersonRequest.class);
 
     validate(patchedRequest);
-    return domainConverter.convertFromRequest(patchedRequest);
+    return domainConverter.convertFromRequest(person.id(), patchedRequest);
   }
 
   @SneakyThrows
