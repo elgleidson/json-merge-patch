@@ -1,4 +1,4 @@
-# PATCH API with Json Merge Patch ()
+# PATCH API with Json Merge Patch
 
 Usually a request for a PUT / POST API contains some annotations like `@NotBlank`, `@NotNull`, `@Valid`, etc. 
 However, when using `JsonMergePatch` our request body is not validated automatically by Spring.
