@@ -77,7 +77,7 @@ public class ProspectController {
   }
 
 
-  @PatchMapping("/{id}")
+  @PatchMapping(value = "/{id}", consumes = "application/merge-patch+json")
   public Mono<ResponseEntity<PersonResponse>> patch(@PathVariable String id,
                                                     @Schema(implementation = PersonRequest.class)
                                                     @RequestBody JsonMergePatch request) {

@@ -1,6 +1,17 @@
-http://localhost:8080/swagger-ui.html
+# PATCH API with Json Merge Patch ()
+
+Usually a request for a PUT / POST API contains some annotations like `@NotBlank`, `@NotNull`, `@Valid`, etc. 
+However, when using `JsonMergePatch` our request body is not validated automatically by Spring.
+
+`@Valid @RequestBody JsonMergePatch request` doesn't work.
+
+This example works around this issue, showing how to make use of the (jakarta/javax) annotations to validate a Json Merge Patch.
+
 
 ## Swagger docs:
+
+http://localhost:8080/swagger-ui.html
+
 We can see the swagger docs are generated correctly. This is possible due to the following annotation:
 `@Schema(implementation = PersonRequest.class) @RequestBody JsonMergePatch request`
 <img src="swagger-doc-schema.png" alt="Swagger doc schema" width=500>
@@ -51,7 +62,7 @@ _Response:_
 curl -X 'PATCH' \
   'http://localhost:8080/people/794b32b2-b187-47b3-9b65-62014acc332a' \
   -H 'accept: */*' \
-  -H 'Content-Type: application/json' \
+  -H 'Content-Type: application/merge-patch+json' \
   -d '{
   "address": {
     "address": "1428 Elm Street",
@@ -85,7 +96,7 @@ _Response:_
 curl -X 'PATCH' \
   'http://localhost:8080/people/794b32b2-b187-47b3-9b65-62014acc332a' \
   -H 'accept: */*' \
-  -H 'Content-Type: application/json' \
+  -H 'Content-Type: application/merge-patch+json' \
   -d '{
   "contact": {
     "email": "freddy.krueger@nightmare.com",
@@ -121,7 +132,7 @@ _Response:_
 curl -X 'PATCH' \
   'http://localhost:8080/people/794b32b2-b187-47b3-9b65-62014acc332a' \
   -H 'accept: */*' \
-  -H 'Content-Type: application/json' \
+  -H 'Content-Type: application/merge-patch+json' \
   -d '{
   "contact": null
 }
@@ -151,7 +162,7 @@ _Response:_
 curl -X 'PATCH' \
   'http://localhost:8080/people/794b32b2-b187-47b3-9b65-62014acc332a' \
   -H 'accept: */*' \
-  -H 'Content-Type: application/json' \
+  -H 'Content-Type: application/merge-patch+json' \
   -d '{
   "address": {
     "city": "New York"
@@ -183,7 +194,7 @@ _Response:_
 curl -X 'PATCH' \
   'http://localhost:8080/people/794b32b2-b187-47b3-9b65-62014acc332a' \
   -H 'accept: */*' \
-  -H 'Content-Type: application/json' \
+  -H 'Content-Type: application/merge-patch+json' \
   -d '{
   "contact": {
     "email": "invalid_email"
@@ -199,7 +210,7 @@ _Response:_ 400 as it gets validated by `@Email` annotation.
 curl -X 'PATCH' \
   'http://localhost:8080/people/794b32b2-b187-47b3-9b65-62014acc332a' \
   -H 'accept: */*' \
-  -H 'Content-Type: application/json' \
+  -H 'Content-Type: application/merge-patch+json' \
   -d '{
   "contact": {
     "email": null
@@ -233,7 +244,7 @@ _Response:_
 curl -X 'PATCH' \
   'http://localhost:8080/people/794b32b2-b187-47b3-9b65-62014acc332a' \
   -H 'accept: */*' \
-  -H 'Content-Type: application/json' \
+  -H 'Content-Type: application/merge-patch+json' \
   -d '{
   "personalDetails": {
     "firstName": null
