@@ -1,4 +1,4 @@
-package com.github.com.elgleidson.patch;
+package com.github.elgleidson.patch;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

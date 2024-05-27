@@ -1,7 +1,7 @@
-package com.github.com.elgleidson.patch.service;
+package com.github.elgleidson.patch.service;
 
-import com.github.com.elgleidson.patch.domain.Person;
-import com.github.com.elgleidson.patch.repository.PersonRepository;
+import com.github.elgleidson.patch.domain.Person;
+import com.github.elgleidson.patch.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

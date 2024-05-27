@@ -1,6 +1,6 @@
-package com.github.com.elgleidson.patch.repository;
+package com.github.elgleidson.patch.repository;
 
-import com.github.com.elgleidson.patch.domain.Person;
+import com.github.elgleidson.patch.domain.Person;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

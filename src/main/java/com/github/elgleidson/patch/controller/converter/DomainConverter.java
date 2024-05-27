@@ -1,8 +1,8 @@
-package com.github.com.elgleidson.patch.controller.converter;
+package com.github.elgleidson.patch.controller.converter;
 
-import com.github.com.elgleidson.patch.controller.domain.PersonRequest;
-import com.github.com.elgleidson.patch.controller.domain.PersonResponse;
-import com.github.com.elgleidson.patch.domain.Person;
+import com.github.elgleidson.patch.controller.domain.PersonRequest;
+import com.github.elgleidson.patch.controller.domain.PersonResponse;
+import com.github.elgleidson.patch.domain.Person;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.github.com.elgleidson.patch.repository.domain;
+package com.github.elgleidson.patch.repository.domain;
 
 import java.time.LocalDate;
 

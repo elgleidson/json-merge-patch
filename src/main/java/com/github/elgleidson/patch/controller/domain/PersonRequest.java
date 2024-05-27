@@ -1,4 +1,4 @@
-package com.github.com.elgleidson.patch.controller.domain;
+package com.github.elgleidson.patch.controller.domain;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;

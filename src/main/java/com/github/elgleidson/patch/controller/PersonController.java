@@ -1,12 +1,12 @@
-package com.github.com.elgleidson.patch.controller;
+package com.github.elgleidson.patch.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.com.elgleidson.patch.controller.converter.DomainConverter;
-import com.github.com.elgleidson.patch.controller.domain.PersonRequest;
-import com.github.com.elgleidson.patch.controller.domain.PersonResponse;
-import com.github.com.elgleidson.patch.domain.Person;
-import com.github.com.elgleidson.patch.service.PersonService;
+import com.github.elgleidson.patch.controller.converter.DomainConverter;
+import com.github.elgleidson.patch.controller.domain.PersonRequest;
+import com.github.elgleidson.patch.controller.domain.PersonResponse;
+import com.github.elgleidson.patch.domain.Person;
+import com.github.elgleidson.patch.service.PersonService;
 import com.github.fge.jsonpatch.mergepatch.JsonMergePatch;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;

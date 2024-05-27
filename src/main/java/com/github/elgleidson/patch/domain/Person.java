@@ -1,5 +1,5 @@
 
-package com.github.com.elgleidson.patch.domain;
+package com.github.elgleidson.patch.domain;
 
 import java.time.LocalDate;
 import java.util.UUID;

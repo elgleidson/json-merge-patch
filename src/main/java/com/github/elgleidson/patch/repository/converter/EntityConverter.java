@@ -1,7 +1,7 @@
-package com.github.com.elgleidson.patch.repository.converter;
+package com.github.elgleidson.patch.repository.converter;
 
-import com.github.com.elgleidson.patch.domain.Person;
-import com.github.com.elgleidson.patch.repository.domain.PersonEntity;
+import com.github.elgleidson.patch.domain.Person;
+import com.github.elgleidson.patch.repository.domain.PersonEntity;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

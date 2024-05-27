@@ -1,8 +1,8 @@
-package com.github.com.elgleidson.patch.repository;
+package com.github.elgleidson.patch.repository;
 
-import com.github.com.elgleidson.patch.domain.Person;
-import com.github.com.elgleidson.patch.repository.converter.EntityConverter;
-import com.github.com.elgleidson.patch.repository.domain.PersonEntity;
+import com.github.elgleidson.patch.domain.Person;
+import com.github.elgleidson.patch.repository.converter.EntityConverter;
+import com.github.elgleidson.patch.repository.domain.PersonEntity;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import lombok.RequiredArgsConstructor;
