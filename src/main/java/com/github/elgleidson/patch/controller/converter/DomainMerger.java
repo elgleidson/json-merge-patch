@@ -29,7 +29,7 @@ public class DomainMerger {
     // convert the person back to what it would be the request to create that person.
     var personRequest = convertToRequest(person);
     // apply the merge patch
-    var jsonNode = objectMapper.convertValue(personRequest, JsonNode.class);
+    var jsonNode = objectMapper.valueToTree(personRequest);
     var patched = mergePatch.apply(jsonNode);
     // verify that the patched person request is a valid request
     var patchedRequest = objectMapper.treeToValue(patched, PersonRequest.class);
@@ -81,6 +81,12 @@ public class DomainMerger {
     var person = new Person(id, personalDetails, address, contact);
     log.debug("exit convertFromRequest(): result={}", person);
     return person;
+  }
+
+  @SneakyThrows
+  public void validate(JsonNode jsonNode) {
+    var personRequest = objectMapper.treeToValue(jsonNode, PersonRequest.class);
+    validate(personRequest);
   }
 
   @SneakyThrows
